@@ -16,8 +16,9 @@ exports.load = function(req, res, next, quizId) {
 
 // GET /quizes
 exports.index = function(req, res) {
+   // Lo ordeno por id ASC, porque al editar pregunta con la base de datos postgres, te lo desordena
   if (!req.query.search) { 
-    models.Quiz.findAll(
+    models.Quiz.findAll({order: 'id ASC'}   
 	).then(
       function(quizes) {
         res.render('quizes/index.ejs', { quizes: quizes, errors: []});
@@ -73,6 +74,33 @@ exports.create = function(req, res) {
 		  }
 		); 
       }      
+    }
+  );
+};
+
+// GET /quizes/:id/edit
+exports.edit = function(req, res) {
+  // Autoload de la instancia de quiz en req
+  res.render('quizes/edit', {quiz: req.quiz, errors: [] });
+};
+
+// PUT /quizes/:id
+exports.update = function(req, res) {
+  req.quiz.pregunta  = req.body.quiz.pregunta;
+  req.quiz.respuesta = req.body.quiz.respuesta;
+
+  //validar la coherencia del quiz
+  req.quiz.validate().then(
+    function(err) {
+      if (err) {
+        res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
+      } else {
+        //save: guarda en DB campos pregunta y respuesta de quiz
+        req.quiz.save({fields: ["pregunta", "respuesta"]}).then(
+          //Redireccion HTTP (URL relativo) lista de preguntas
+          function() {res.redirect('/quizes');}
+        );
+      }
     }
   );
 };
