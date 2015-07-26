@@ -23,7 +23,7 @@ exports.index = function(req, res) {
       function(quizes) {
         res.render('quizes/index.ejs', { quizes: quizes, errors: []});
       }
-    ).catch(function(error) { next(error);}) //
+    ).catch(function(error) { next(error);}); //
   } else {    
     models.Quiz.findAll({
       where: [ "lower(pregunta) like lower(?)", "%"+req.query.search.replace(/\s/g, "%")+"%" ], 
@@ -32,7 +32,7 @@ exports.index = function(req, res) {
 	  function(quizes) {
         res.render( 'quizes/index.ejs', { quizes: quizes, errors: []});
       }
-    ).catch(function(error) {next(error);}) //
+    ).catch(function(error) {next(error);}); //
   }
 };
 
@@ -75,7 +75,7 @@ exports.create = function(req, res) {
 		); 
       }      
     }
-  );
+  ).catch(function(error){next(error);}); //
 };
 
 // GET /quizes/:id/edit
@@ -102,5 +102,12 @@ exports.update = function(req, res) {
         );
       }
     }
-  );
+  ).catch(function(error){next(error);}); //
+};
+
+// DELETE /quizes/:id
+exports.destroy = function(req, res) {
+  req.quiz.destroy().then( function() {
+    res.redirect('/quizes');
+  }).catch(function(error){next(error);}); //
 };
