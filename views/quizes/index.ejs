@@ -5,6 +5,7 @@
 <table id="tabla-preg">
   <% var i; for (i=0; i < quizes.length; i++) { %>        
      <tr>
+	   <td><%= quizes[i].tema %></td>
 	   <td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
 	   <td><a href="quizes/<%= quizes[i].id %>/edit"><button>Editar</button></a></td>
 	   <td>
