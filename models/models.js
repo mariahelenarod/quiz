@@ -33,9 +33,9 @@ var Quiz = sequelize.import(path.join(__dirname,'quiz'));
 var Comment = sequelize.import(path.join(__dirname,'comment'));
 
 //Relaciones entre tablas
-//Comment.belongsTo(Quiz);
-Comment.belongsTo(Quiz, {onDelete: 'cascade'});  //Para borrar registros de la tabla Comment cuando se borre una pregunta
-Quiz.hasMany(Comment);
+  //Para borrar comentarios de la tabla Comment cuando se borre una pregunta de la tabla Quiz, puse onDelete
+Comment.belongsTo(Quiz, {onDelete: 'cascade'});
+Quiz.hasMany(Comment, {onDelete: 'cascade'});
 
 exports.Quiz = Quiz; // exportar tabla Quiz
 exports.Comment = Comment; // exportar tabla Comment

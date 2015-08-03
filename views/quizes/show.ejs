@@ -1,21 +1,21 @@
-    <form method="get" action="/quizes/<%= quiz.id %>/answer">
-      <p><span class="letra-negrita">Pregunta de <%= quiz.tema %>: </span><%= quiz.pregunta %></p>
-      <input type="text" name="respuesta" placeholder="Respuesta" />	
-      <input type="submit" value="Enviar">
-    </form><br>
+<form method="get" action="/quizes/<%= quiz.id %>/answer">
+  <p><span class="letra-negrita">Pregunta de <%= quiz.tema %>: </span><%= quiz.pregunta %></p>
+  <input type="text" name="respuesta" placeholder="Respuesta" />	
+  <input type="submit" value="Enviar">
+</form><br>
 	
-    <p class="letra-negrita">Comentarios:</p>
-    <%for(index in quiz.Comments){%>
-	  <% if(quiz.Comments[index].publicado || session.user) {%>
-	    <p>- <%=quiz.Comments[index].texto%>
-		  <% if(session.user && !quiz.Comments[index].publicado) {%>
-            <a href="/quizes/<%=quiz.id%>/comments/<%=quiz.Comments[index].id%>/publish">
-              <button>Publicar</button>
-            </a>
-          <% } %>
-		</p>
-	  <% } %>
-    <%}%>
+<p class="letra-negrita">Comentarios:</p>
+<%for(index in quiz.Comments){%>
+  <% if(quiz.Comments[index].publicado || session.user) {%>
+	 <p>- <%=quiz.Comments[index].texto%>
+	   <% if(session.user && !quiz.Comments[index].publicado) {%>
+          <a href="/quizes/<%=quiz.id%>/comments/<%=quiz.Comments[index].id%>/publish">
+            <button>Publicar</button>
+          </a>
+       <% } %>
+	 </p>
+  <% } %>
+<%}%>
 	
-	<p>* Los comentarios no se publicarán hasta ser autorizados</p>
-	<p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Añadir comentario</button></a></p>
+<p class="avisoMsgs">* Los comentarios no se publicarán hasta ser autorizados</p>
+<p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Añadir comentario</button></a></p>

@@ -39,6 +39,22 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Auto-logout
+app.use( function(req, res, next) {
+  if ( req.session.user ) {
+    var now = new Date().getMinutes();     // Tiempo actual en minutos                      
+    if ( ( now-req.session.user.activo ) > 2 ) {    // 2 minutos 
+      delete req.session.user;
+      req.session.errors = [ { "message": 'Superado el tiempo de inactividad, vuelva a autenticarse para continuar' } ]; 
+      res.redirect("/login"); 
+      return;
+    } else { 
+      req.session.user.activo = new Date().getMinutes();   // Tiempo activo en minutos del usuario autenticado
+    }                                                      
+  }
+  next();
+});
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
