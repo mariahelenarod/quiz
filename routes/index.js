@@ -24,7 +24,7 @@ router.param('commentId', commentController.load);  // autoload :commentId
 // Definición de rutas de sesión
 router.get('/login',  sessionController.new); //formulario de login
 router.post('/login', sessionController.create); //crear sesión
-router.get('/logout', sessionController.destroy); //destruir sesión
+router.get('/logout', sessionController.destroy); //destruir sesión. Debiera ser DELETE (REST)
 
 // Definición de rutas de /quizes
 router.get('/quizes',                      quizController.index);
@@ -40,7 +40,7 @@ router.delete('/quizes/:quizId(\\d+)',     sessionController.loginRequired, quiz
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments'   , commentController.create);
 router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', 
-	                                    sessionController.loginRequired, commentController.publish);
+	                                    sessionController.loginRequired, commentController.publish); //Debiera ser PUT
  
 
 module.exports = router;

@@ -11,7 +11,8 @@ footer               		{ background: #eee; text-align: center;}
 nav span             		{ margin: 0px 10px 0px 0px;}
 footer span             		{ margin: 0px 10px 0px 0px;}
 #img-aut                        { max-width: 100px;}
-#tabla-preg			{ margin: 0 auto; float: center;} /* top and bottom margins are 0. And right and left margins are auto */
+#tabla-preg			{ margin: 0 auto; float: center;} /* Top and bottom margins are 0, and right and left margins are auto */
+													  /* Dice deprecated float en firefox */
 .letra-negrita            { font-weight: bold;}
 #ErrorMsgs                    { color: #f61; font-size: smaller; } /* color rojo de texto*/
 .right 				{ float: right; }

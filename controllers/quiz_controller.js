@@ -20,7 +20,7 @@ exports.load = function(req, res, next, quizId) {
 // GET /quizes
 exports.index = function(req, res, next) {
   // Lo ordeno por id ASC, porque al editar pregunta con la base de datos postgres, te lo desordena
-  if (!req.query.search) {  // req.query.search === null
+  if (!req.query.search) {  // req.query.search === null o " "
     models.Quiz.findAll({
 	  order: 'id ASC'
 	}).then(
@@ -28,7 +28,7 @@ exports.index = function(req, res, next) {
         res.render('quizes/index.ejs', { quizes: quizes, errors: []});
       }
     ).catch(function(error) { next(error);}); //
-  } else {    // req.query.search !== null
+  } else {    // req.query.search !== null o " "
     models.Quiz.findAll({
       where: [ "lower(pregunta) like lower(?)", "%"+req.query.search.replace(/\s/g, "%")+"%" ], 
 	  order: 'pregunta ASC'
@@ -48,7 +48,7 @@ exports.show = function(req,res){
 
 //GET /quizes/:id/answer
 exports.answer = function(req,res){
-  if (!req.query.respuesta){
+  if (!req.query.respuesta){  // req.query.respuesta === " " o null o undefined
 	res.render('quizes/show', {quiz: req.quiz, errors: [ { "message": '-> Falta respuesta' } ]});	  
   }else{
     var resultado = 'Incorrecto';

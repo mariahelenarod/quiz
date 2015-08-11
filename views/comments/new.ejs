@@ -1,5 +1,6 @@
 <h3>Añadir comentario: </h3><br>
 <form method="post" action="/quizes/<%=quizid%>/comments/" >      
   <input type="text" id="comment" name="comment[texto]" value="" placeholder="Comentario"/> <br><br>
+  <a href="/quizes/<%= quizid %>"><button type="button">Cancelar</button></a>
   <button type="submit">Enviar</button>
 </form>
